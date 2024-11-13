@@ -1,4 +1,6 @@
-﻿using Data.Entities;
+﻿using Common.Enums;
+using Common.Models;
+using Data.Entities;
 using Data.Repository.Interfaces;
 
 namespace Data.Repository.Implementations
@@ -19,6 +21,18 @@ namespace Data.Repository.Implementations
         public Currency GetOne(int currencyId)
         {
             return _context.Currencys.SingleOrDefault(c => c.Id == currencyId);
+        }
+
+        public Currency GetByCode(CurrencyEnum currencyCode)
+        {
+            try
+            {
+                return _context.Currencys.SingleOrDefault(c => c.Code == currencyCode);
+            }
+            catch (Exception) 
+            {
+                throw new Exception();
+            }
         }
 
         public int CreateCurrency(Currency currency)

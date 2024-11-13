@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Enums;
+using Common.Models;
 using Data.Entities;
 using Data.Repository.Interfaces;
 using Services.Interfaces;
@@ -21,6 +22,11 @@ namespace Services.Implementation
         public Currency GetOne(int id)
         {
             return _currencyRepository.GetOne(id);
+        }
+
+        public Currency GetByCode(CurrencyEnum currencyCode)
+        {
+            return _currencyRepository.GetByCode(currencyCode);
         }
 
         public int CreateCurrency(CurrencyDTO newCurrencyDTO)

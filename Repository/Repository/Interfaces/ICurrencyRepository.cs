@@ -1,4 +1,6 @@
-﻿using Data.Entities;
+﻿using Common.Enums;
+using Common.Models;
+using Data.Entities;
 
 
 namespace Data.Repository.Interfaces
@@ -7,6 +9,7 @@ namespace Data.Repository.Interfaces
     {
         IEnumerable<Currency> GetAll();
         Currency GetOne(int currencyId);
+        Currency GetByCode(CurrencyEnum currencyCode);
         int CreateCurrency(Currency currency);
         int UpdateCurrency(Currency currency);
         void DeleteCurrency(int currencyId);
