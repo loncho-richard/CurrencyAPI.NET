@@ -25,6 +25,10 @@ namespace Data.Migrations
                     b.Property<int>("Code")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Leyend")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<float>("Value")
                         .HasColumnType("REAL");
 
@@ -62,9 +66,6 @@ namespace Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("SubcriptionId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("INTEGER");

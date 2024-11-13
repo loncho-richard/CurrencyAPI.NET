@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Models.Enums
+namespace Services.Implementation
 {
-    public enum SubcriptionEnum
+    public class ConversionServiccs
     {
-        Free,
-        Trial,
-        Pro
     }
 }

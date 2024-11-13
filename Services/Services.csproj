@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Repository\Data.csproj" />
   </ItemGroup>
 

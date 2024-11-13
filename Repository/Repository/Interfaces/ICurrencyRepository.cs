@@ -1,0 +1,14 @@
+﻿using Data.Entities;
+
+
+namespace Data.Repository.Interfaces
+{
+    public interface ICurrencyRepository
+    {
+        IEnumerable<Currency> GetAll();
+        Currency GetOne(int currencyId);
+        int CreateCurrency(Currency currency);
+        int UpdateCurrency(Currency currency);
+        void DeleteCurrency(int currencyId);
+    }
+}

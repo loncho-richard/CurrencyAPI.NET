@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CurrencyAPIContext))]
-    [Migration("20241112224628_InitialMigration")]
+    [Migration("20241113042112_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,6 +27,10 @@ namespace Data.Migrations
 
                     b.Property<int>("Code")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Leyend")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<float>("Value")
                         .HasColumnType("REAL");
@@ -65,9 +69,6 @@ namespace Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("SubcriptionId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("INTEGER");

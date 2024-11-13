@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.Models;
+using Data.Entities;
+
 
 namespace Data.Repository.Interfaces
 {
     public interface IUserRepository
     {
+        IEnumerable<User> ReadUsers();
+        User? AuthUser(CredentialsDTO credentialsDTO);
+        int CreateUser(User user);
     }
 }

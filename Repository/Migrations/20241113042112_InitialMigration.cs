@@ -17,6 +17,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<int>(type: "INTEGER", nullable: false),
+                    Leyend = table.Column<string>(type: "TEXT", nullable: false),
                     Value = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
@@ -47,7 +48,6 @@ namespace Data.Migrations
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Conversions = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubcriptionId = table.Column<int>(type: "INTEGER", nullable: false),
                     SubscriptionId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

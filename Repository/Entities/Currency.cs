@@ -1,9 +1,6 @@
-﻿using Common.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.Enums;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Data.Entities
 {
@@ -11,6 +8,7 @@ namespace Data.Entities
     {
         public int Id { get; set; }
         public CurrencyEnum Code { get; set; }
+        public string Leyend { get; set; }
         public float Value { get; set; }
     }
 }
