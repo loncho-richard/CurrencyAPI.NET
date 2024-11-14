@@ -10,7 +10,7 @@ namespace Common.Models
     public class CurrencyDTO
     {
         public CurrencyEnum Code { get; set; }
-        public string Leyend { get; set; }
+        public required string Leyend { get; set; }
         public float Value { get; set; }
     }
 }

@@ -54,5 +54,22 @@ namespace Services.Implementation
                 throw new Exception();
             }
         }
+
+        public User GetOneById(int userId)
+        {
+            return _userRepository.GetOneById(userId);
+        }
+
+        public void UpdateUserConversions(int userId, int newConversionCount) 
+        {
+            User user = _userRepository.GetOneById(userId);
+            if (user == null) 
+            {
+                throw new Exception("User not found");
+            }
+
+            user.Conversions = newConversionCount;
+            _userRepository.UpdateUser(user);
+        }
     }
 }

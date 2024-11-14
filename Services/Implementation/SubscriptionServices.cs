@@ -13,9 +13,11 @@ namespace Services.Implementation
     public class SubscriptionServices : ISubscriptionServices
     {
         public readonly ISubscriptionRepository _subscriptionRepository;
-        public SubscriptionServices(ISubscriptionRepository subscriptionRepository)
+        public readonly IUserRepository _userRepository;
+        public SubscriptionServices(ISubscriptionRepository subscriptionRepository, IUserRepository userRepository)
         {
             _subscriptionRepository = subscriptionRepository;
+            _userRepository = userRepository;
         }
         
         public IEnumerable<Subscription> GetAll()
@@ -53,12 +55,7 @@ namespace Services.Implementation
 
         public int UpdateSubscription(int subscriptionId, SubscriptionDTO updateSubscription)
         {
-            var subscription = _subscriptionRepository.GetOne(subscriptionId);
-            if (subscription == null)
-            {
-                throw new Exception("Subscription not found");
-            }
-
+            var subscription = _subscriptionRepository.GetOne(subscriptionId) ?? throw new Exception("Subscription not found");
             subscription.Type = updateSubscription.Type;
             subscription.MaxConversions = updateSubscription.MaxConversions;
 
@@ -67,13 +64,14 @@ namespace Services.Implementation
 
         public void DeleteSubscription(int subscriptionId) 
         {
-            var subscription = _subscriptionRepository.GetOne(subscriptionId);
-            if (subscription == null)
-            {
-                throw new Exception("Subscription not found");
-            }
-
+            Subscription subscription = _subscriptionRepository.GetOne(subscriptionId) ?? throw new Exception("Subscription not found");
             _subscriptionRepository.DeleteSubscription(subscriptionId);
+        }
+
+        public void AssignSubscription(int userId, int subscriptionId)
+        {
+            Subscription subscription = _subscriptionRepository.GetOne(subscriptionId) ?? throw new Exception("Subscription not found");
+            _userRepository.AssignSubscription(userId, subscription);
         }
     }
 

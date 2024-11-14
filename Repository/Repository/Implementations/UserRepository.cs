@@ -36,5 +36,24 @@ namespace Data.Repository.Implementations
                 throw new Exception();
             }
         }
+
+        public User GetOneById(int userId)
+        {
+            return _context.Users.SingleOrDefault(u => u.Id == userId);
+        }
+
+        public void UpdateUser(User user)
+        {
+            User existingUser = _context.Users.SingleOrDefault(u => u.Id == user.Id);
+
+            existingUser.Conversions = user.Conversions;
+            _context.SaveChanges();
+        }
+
+        public void AssignSubscription(int userId, Subscription subscription)
+        {
+            _context.Users.SingleOrDefault(u => u.Id == userId).SubscriptionId = subscription.Id;
+            _context.SaveChanges();
+        }
     }
 }

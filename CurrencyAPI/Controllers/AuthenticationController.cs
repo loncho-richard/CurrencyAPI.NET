@@ -37,8 +37,10 @@ namespace CurrencyAPI.Controllers
 
             List<Claim> claimsForToken = new List<Claim>()
             {
-                 new Claim("sub", user.Id.ToString()),
-                new Claim("given_name", user.Username)
+                new Claim("sub", user.Id.ToString()),
+                new Claim("given_name", user.Username),
+                new Claim("conversions", user.Conversions.ToString()),
+                new Claim("subscriptionId", user.SubscriptionId.ToString())
             };
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(

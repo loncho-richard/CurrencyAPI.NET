@@ -1,8 +1,10 @@
 ﻿using Common.Models;
+using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using System.Security.Claims;
 
 namespace CurrencyAPI.Controllers
 {
@@ -12,9 +14,19 @@ namespace CurrencyAPI.Controllers
     public class CurrencyController : ControllerBase
     {
         public readonly ICurrencyServices _currencyServices;
-        public CurrencyController(ICurrencyServices currencyServices)
+        public readonly ISubscriptionServices _subscriptionServices;
+        public readonly IVerifyToConversionServices _verifyToConversionServices;
+        public readonly IUserServices _userServices;
+        public CurrencyController(
+            ICurrencyServices currencyServices, 
+            ISubscriptionServices subscriptionServices,
+            IVerifyToConversionServices verifyToConversionServices,
+            IUserServices userServices)
         {
             _currencyServices = currencyServices;
+            _subscriptionServices = subscriptionServices;
+            _verifyToConversionServices = verifyToConversionServices;
+            _userServices = userServices;
         }
 
         [HttpPost]
@@ -27,7 +39,7 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
         }
 
@@ -46,7 +58,7 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
         }
 
@@ -59,22 +71,38 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
         }
 
         [HttpDelete("{currencyId}")]
-        public IActionResult DeleteCurrency([FromRoute] int currencyId) 
+        public IActionResult DeleteCurrency([FromRoute] int currencyId)
         {
             try
             {
                 _currencyServices.DeleteCurrency(currencyId);
                 return NoContent();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return BadRequest($"Error {ex}");
+                return BadRequest($"Error {ex.Message}");
             }
         }
+
+        [HttpPost("convert")]
+        public IActionResult ConvertCurrency([FromBody] ConversionDTO conversionDTO)
+        {
+            
+            try
+            {
+                var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value.ToString()!);
+                return Ok(_verifyToConversionServices.VerifyToConversion(userId, conversionDTO));
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
+
     }
 }

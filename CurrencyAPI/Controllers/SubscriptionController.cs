@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using System.Security.Claims;
 
 namespace CurrencyAPI.Controllers
 {
@@ -27,7 +28,7 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
         }
 
@@ -46,7 +47,7 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
 
         }
@@ -60,7 +61,7 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
             }
         }
 
@@ -74,7 +75,22 @@ namespace CurrencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex}");
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("{subscriptionId}")]
+        public IActionResult AssignSubscription([FromRoute] int subscriptionId)
+        {
+            try
+            {
+                var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value.ToString()!);
+                _subscriptionServices.AssignSubscription(userId, subscriptionId);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest($"Error: {ex.Message}");
             }
         }
     }

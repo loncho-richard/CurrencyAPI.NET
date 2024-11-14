@@ -15,5 +15,6 @@ namespace Services.Interfaces
         int CreateSubscription(SubscriptionDTO subscriptionDTO);
         int UpdateSubscription(int subscriptionId, SubscriptionDTO updateSubscription);
         void DeleteSubscription(int subscriptionId);
+        void AssignSubscription(int userId, int subscriptionId);
     }
 }

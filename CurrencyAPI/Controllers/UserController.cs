@@ -1,4 +1,6 @@
 ﻿using Common.Models;
+using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -16,7 +18,7 @@ namespace CurrencyAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser([FromBody] NewUserDTO newUserDTO) 
+        public IActionResult CreateUser([FromBody] NewUserDTO newUserDTO)
         {
             try
             {
@@ -26,6 +28,21 @@ namespace CurrencyAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"Error: {ex}");
+            }
+        }
+
+        [HttpGet("{userId}")]
+        [Authorize]
+        public IActionResult GetOneUser([FromRoute] int userId) 
+        {
+            try
+            {
+                User user = _userServices.GetOneById(userId);
+                return Ok(user);
+            }
+            catch
+            {
+                return BadRequest();
             }
         }
     }

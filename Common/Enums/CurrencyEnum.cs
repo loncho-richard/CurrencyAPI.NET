@@ -8,7 +8,7 @@ namespace Common.Enums
         EUR,
         ARS,
         GBP,
-        JYP,
+        JPY,
         CHF,
         CAD,
         AUD,

@@ -42,6 +42,7 @@ namespace Services.Implementation
                     new Currency
                     {
                         Code = newCurrencyDTO.Code,
+                        Leyend = newCurrencyDTO.Leyend,
                         Value = newCurrencyDTO.Value
                     });
                 return newCurrencyId;
