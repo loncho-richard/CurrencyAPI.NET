@@ -73,6 +73,18 @@ builder.Services.AddAuthentication("Bearer")
     }
 );
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "AllowOrigin",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+        });
+});
+
 
 var app = builder.Build();
 
@@ -84,6 +96,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();

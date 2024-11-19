@@ -37,12 +37,22 @@ namespace Data.Repository.Implementations
             }
         }
 
-        public User GetOneById(int userId)
+        public UserDetailDTO GetOneById(int userId)
         {
-            return _context.Users.SingleOrDefault(u => u.Id == userId);
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+
+            var userDetailDTO = new UserDetailDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Conversions = user.Conversions,
+                SubscriptionId = user.SubscriptionId
+            };
+
+            return userDetailDTO;
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(UserDetailDTO user)
         {
             User existingUser = _context.Users.SingleOrDefault(u => u.Id == user.Id);
 

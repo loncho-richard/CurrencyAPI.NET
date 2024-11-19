@@ -55,14 +55,14 @@ namespace Services.Implementation
             }
         }
 
-        public User GetOneById(int userId)
+        public UserDetailDTO GetOneById(int userId)
         {
             return _userRepository.GetOneById(userId);
         }
 
         public void UpdateUserConversions(int userId, int newConversionCount) 
         {
-            User user = _userRepository.GetOneById(userId);
+            UserDetailDTO user = _userRepository.GetOneById(userId);
             if (user == null) 
             {
                 throw new Exception("User not found");

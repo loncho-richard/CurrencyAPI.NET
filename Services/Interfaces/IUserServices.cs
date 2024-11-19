@@ -8,7 +8,7 @@ namespace Services.Interfaces
     {
         User? AuthUser(CredentialsDTO credentialsDTO);
         int CreateUser(NewUserDTO userDTO);
-        User GetOneById(int userId);
+        UserDetailDTO GetOneById(int userId);
         void UpdateUserConversions(int userId, int newConversionCount);
     }
 }

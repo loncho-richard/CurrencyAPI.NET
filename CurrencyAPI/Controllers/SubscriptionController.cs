@@ -9,7 +9,6 @@ namespace CurrencyAPI.Controllers
 {
     [Route("api/subscription")]
     [ApiController]
-    [Authorize]
     public class SubscriptionController : ControllerBase
     {
         public readonly ISubscriptionServices _subscriptionServices;
@@ -17,8 +16,8 @@ namespace CurrencyAPI.Controllers
         {
             _subscriptionServices = subscriptionServices;
         }
-
         [HttpPost]
+        [Authorize]
         public IActionResult CreateSubscription([FromBody] SubscriptionDTO newSubscriptionDTO)
         {
             try
@@ -53,6 +52,7 @@ namespace CurrencyAPI.Controllers
         }
 
         [HttpPut("{subscriptionId}")]
+        [Authorize]
         public IActionResult UpdateSubscription([FromRoute] int subscriptionId, [FromBody] SubscriptionDTO subscription)
         {
             try
@@ -66,6 +66,7 @@ namespace CurrencyAPI.Controllers
         }
 
         [HttpDelete("{subscriptionId}")]
+        [Authorize]
         public IActionResult DeleteSubscription([FromRoute] int subscriptionId)
         {
             try
@@ -80,6 +81,7 @@ namespace CurrencyAPI.Controllers
         }
 
         [HttpPost("{subscriptionId}")]
+        [Authorize]
         public IActionResult AssignSubscription([FromRoute] int subscriptionId)
         {
             try

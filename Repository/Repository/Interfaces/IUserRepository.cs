@@ -9,8 +9,8 @@ namespace Data.Repository.Interfaces
         IEnumerable<User> ReadUsers();
         User? AuthUser(CredentialsDTO credentialsDTO);
         int CreateUser(User user);
-        User GetOneById(int userId);
-        void UpdateUser(User user);
+        UserDetailDTO GetOneById(int userId);
+        void UpdateUser(UserDetailDTO user);
         void AssignSubscription(int userId, Subscription subscription);
     }
 }

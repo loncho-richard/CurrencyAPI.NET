@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using System.Security.Claims;
 
 namespace CurrencyAPI.Controllers
 {
@@ -31,13 +32,14 @@ namespace CurrencyAPI.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("me")]
         [Authorize]
-        public IActionResult GetOneUser([FromRoute] int userId) 
+        public IActionResult GetOneUser() 
         {
             try
             {
-                User user = _userServices.GetOneById(userId);
+                var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value.ToString()!);
+                UserDetailDTO user = _userServices.GetOneById(userId);
                 return Ok(user);
             }
             catch
